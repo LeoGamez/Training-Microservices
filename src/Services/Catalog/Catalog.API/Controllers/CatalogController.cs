@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.API.Controllers
 {
@@ -7,5 +6,10 @@ namespace Catalog.API.Controllers
     [ApiController]
     public class CatalogController : ControllerBase
     {
+        [HttpGet("HealthCheck")]
+        public IActionResult HealtchCheck()
+        {
+            return Ok("Healthy");
+        }
     }
 }
