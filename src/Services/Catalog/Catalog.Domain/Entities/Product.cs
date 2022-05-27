@@ -5,8 +5,14 @@ namespace Catalog.Domain.Entities
 {
     public class Product
     {
-        public Product(string name, string category, string summary, string description, string imageFile, decimal price)
+        public Product()
         {
+
+        }
+
+        public Product(string id, string name, string category, string summary, string description, string imageFile, decimal price)
+        {
+            Id = id;
             Name = name;
             Category = category;
             Summary = summary;
