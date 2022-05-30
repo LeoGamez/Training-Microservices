@@ -1,4 +1,23 @@
+﻿using AutoMapper;
+using Catalog.Application;
+using Catalog.Application.Queries.GetProducts;
+using MediatR;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Add automapper
+
+var config = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new GetProductsProfile());
+});
+
+var mapper = config.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
+// Add MediatR
+
+builder.Services.AddMediatR(typeof(ApplicationAssembly).Assembly);
 
 // Add services to the container.
 
@@ -21,3 +40,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

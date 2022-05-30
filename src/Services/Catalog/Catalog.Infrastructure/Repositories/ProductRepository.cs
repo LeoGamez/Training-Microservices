@@ -13,14 +13,16 @@ namespace Catalog.Infrastructure.Repositories
             this.context = context;
         }
 
-        public Task CreateProduct(Product product)
+        public async Task CreateProduct(Product product)
         {
-            throw new NotImplementedException();
+            await context.Products.InsertOneAsync(product);
         }
 
-        public Task<bool> DeleteProduct(Product product)
+        public async Task<bool> DeleteProduct(Product product)
         {
-            throw new NotImplementedException();
+            var deleteResult = await context.Products.DeleteOneAsync(filter: g => g.Id == product.Id);
+
+            return deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0;
         }
 
         public async Task<Product> GetProductByCategory(string categoryName)
@@ -40,12 +42,14 @@ namespace Catalog.Infrastructure.Repositories
 
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            return await context.Products.Find(p => true).ToListAsync();
+            return await context.Products.Find(_ => true).ToListAsync();
         }
 
-        public Task<bool> UpdateProduct(Product product)
+        public async Task<bool> UpdateProduct(Product product)
         {
-            throw new NotImplementedException();
+            var updateResult = await context.Products.ReplaceOneAsync(filter: g => g.Id == product.Id, replacement: product);
+
+            return updateResult.IsAcknowledged && updateResult.ModifiedCount > 0;
         }
     }
 }

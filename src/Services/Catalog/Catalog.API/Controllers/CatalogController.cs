@@ -1,15 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Catalog.Application.Queries.GetProducts;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class CatalogController : ControllerBase
     {
-        [HttpGet("HealthCheck")]
-        public IActionResult HealtchCheck()
+        private readonly IMediator mediatr;
+
+        public CatalogController(IMediator mediatr)
         {
-            return Ok("Healthy");
+            this.mediatr = mediatr;
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<ProductDto>> GetProducts([FromBody] Application.Queries.GetProducts.GetProductsQuery request)
+        {
+            return await this.mediatr.Send(request);
         }
     }
 }

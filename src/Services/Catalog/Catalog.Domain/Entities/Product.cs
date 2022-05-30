@@ -7,7 +7,6 @@ namespace Catalog.Domain.Entities
     {
         public Product()
         {
-
         }
 
         public Product(string id, string name, string category, string summary, string description, string imageFile, decimal price)
