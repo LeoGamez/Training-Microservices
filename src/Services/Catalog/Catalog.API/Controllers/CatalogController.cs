@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.API.Controllers
 {
-    [Route("api/v1/[controller]")]
     [ApiController]
+    [Route("api/v1/[controller]")]
     public class CatalogController : ControllerBase
     {
         private readonly IMediator mediatr;
@@ -16,9 +16,9 @@ namespace Catalog.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ProductDto>> GetProducts([FromBody] Application.Queries.GetProducts.GetProductsQuery request)
+        public async Task<IEnumerable<ProductDto>> GetProducts()
         {
-            return await this.mediatr.Send(request);
+            return await this.mediatr.Send(new GetProductsQuery());
         }
     }
 }
