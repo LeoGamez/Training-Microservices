@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using Catalog.Application.Models;
 using Catalog.Infrastructure.Repositories;
 using MediatR;
 
-namespace Catalog.Application.Queries.GetProducts
+namespace Catalog.Application.Queries
 {
     public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, IEnumerable<ProductDto>>
     {

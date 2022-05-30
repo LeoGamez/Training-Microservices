@@ -18,16 +18,16 @@ namespace Catalog.Infrastructure.Repositories
             await context.Products.InsertOneAsync(product);
         }
 
-        public async Task<bool> DeleteProduct(Product product)
+        public async Task<bool> DeleteProduct(string id)
         {
-            var deleteResult = await context.Products.DeleteOneAsync(filter: g => g.Id == product.Id);
+            var deleteResult = await context.Products.DeleteOneAsync(filter: g => g.Id == id);
 
             return deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0;
         }
 
-        public async Task<Product> GetProductByCategory(string categoryName)
+        public async Task<IEnumerable<Product>> GetProductByCategory(string categoryName)
         {
-            return await context.Products.Find(p => p.Category == categoryName).FirstOrDefaultAsync();
+            return await context.Products.Find(p => p.Category == categoryName).ToListAsync();
         }
 
         public async Task<Product> GetProductById(string id)

@@ -9,10 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add automapper
 
-var config = new MapperConfiguration(cfg =>
-{
-    cfg.AddProfile(new GetProductsProfile());
-});
+var config = new MapperConfiguration(cfg => cfg.AddProfile(new GetProductsProfile()));
 
 var mapper = config.CreateMapper();
 builder.Services.AddSingleton(mapper);
@@ -25,8 +22,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Add Repositories
-builder.Services.AddSingleton<IProductRepository, ProductRepository>();
-builder.Services.AddSingleton<ICatalogContext, CatalogContext>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICatalogContext, CatalogContext>();
 
 // Add MediatR
 

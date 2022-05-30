@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Catalog.Application.Models;
 using Catalog.Domain.Entities;
 
 namespace Catalog.Application.Queries.GetProducts

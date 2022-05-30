@@ -1,4 +1,4 @@
-﻿namespace Catalog.Application.Queries.GetProducts
+﻿namespace Catalog.Application.Models
 {
     public class ProductDto
     {
