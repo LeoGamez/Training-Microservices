@@ -8,10 +8,11 @@ namespace Catalog.Infrastructure.Context
     {
         public CatalogContext(IConfiguration configuration)
         {
-            var client = new MongoClient(configuration.GetSection("DatabaseSettings:ConnectionString").Value);
-            var database = client.GetDatabase(configuration.GetSection("DatabaseSettings:DatabaseName").Value);
+            var connection = configuration.GetValue<string>("DatabaseSettings:ConnectionString");
 
-            Products = database.GetCollection<Product>(configuration.GetSection("DatabaseSettings:CollectionName").Value);
+            var client = new MongoClient(connection);
+            var database = client.GetDatabase(configuration.GetValue<string>("DatabaseSettings:DatabaseName"));
+            Products = database.GetCollection<Product>(configuration.GetValue<string>("DatabaseSettings:CollectionName"));
             CatalogContextSeed.SeedData(Products);
         }
 
