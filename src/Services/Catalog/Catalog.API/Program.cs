@@ -8,7 +8,6 @@ using MediatR;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add automapper
-
 var config = new MapperConfiguration(cfg => cfg.AddProfile(new GetProductsProfile()));
 
 var mapper = config.CreateMapper();
