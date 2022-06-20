@@ -14,12 +14,10 @@ namespace Basket.API.Controllers
     public class BasketController : ControllerBase
     {
         private readonly IMediator mediatr;
-        private readonly ILogger<BasketController> logger;
 
-        public BasketController(IMediator mediatr, ILogger<BasketController> logger)
+        public BasketController(IMediator mediatr)
         {
             this.mediatr = mediatr;
-            this.logger = logger;
         }
 
         [HttpGet("{userName}", Name = "GetBasket")]
