@@ -21,6 +21,8 @@ namespace Basket.Application.Commands.UpdateShoppingCart
         {
             var basket = await this.basketRepository.UpdateBasket(this.mapper.Map<ShoppingCart>(request.ShoppingCart));
 
+            //TODO: Consume Discount.grpc and calculate prices
+
             return this.mapper.Map<ShoppingCartDto>(basket);
         }
     }

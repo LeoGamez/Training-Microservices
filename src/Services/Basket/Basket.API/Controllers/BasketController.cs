@@ -1,4 +1,5 @@
-﻿using Basket.Application.Commands.DeleteShoppingCart;
+﻿using Basket.API.Services;
+using Basket.Application.Commands.DeleteShoppingCart;
 using Basket.Application.Commands.ShoppingCartCheckout;
 using Basket.Application.Commands.UpdateShoppingCart;
 using Basket.Application.Models;
@@ -14,10 +15,12 @@ namespace Basket.API.Controllers
     public class BasketController : ControllerBase
     {
         private readonly IMediator mediatr;
+        private readonly IDiscountGrpcService discountGrpcService;
 
-        public BasketController(IMediator mediatr)
+        public BasketController(IMediator mediatr, IDiscountGrpcService discountGrpcService)
         {
             this.mediatr = mediatr;
+            this.discountGrpcService = discountGrpcService;
         }
 
         [HttpGet("{userName}", Name = "GetBasket")]
@@ -34,6 +37,12 @@ namespace Basket.API.Controllers
         [ProducesResponseType(typeof(ShoppingCartDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateBasket([FromBody] UpdateShoppingCartCommand request)
         {
+            foreach (var item in request.ShoppingCart.Items)
+            {
+                var coupon = await discountGrpcService.GetDiscount(item.ProductName);
+                item.Price -= coupon.Amount;
+            }
+
             return Ok(await this.mediatr.Send(request));
         }
 
